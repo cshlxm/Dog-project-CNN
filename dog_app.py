@@ -556,6 +556,7 @@ test_VGG16 = bottleneck_features['test']
 
 VGG16_model = Sequential()
 VGG16_model.add(GlobalAveragePooling2D(input_shape=train_VGG16.shape[1:]))
+
 VGG16_model.add(Dense(133, activation='softmax'))
 
 VGG16_model.summary()
@@ -676,7 +677,20 @@ test_Xception = bottleneck_features['test']
 # 在下方的代码块中尝试使用 Keras 搭建最终的网络架构，并回答你实现最终 CNN 架构的步骤与每一步的作用，并描述你在迁移学习过程中，使用该网络架构的原因。
 # 
 # 
-# __回答:__ 
+# __回答:__ Xception_model = Sequential()    
+#     调用Xception的预训练模型
+# 
+# Xception_model.add(GlobalAveragePooling2D(input_shape=train_Resnet50.shape[1:]))
+#     添加一个全局平均池化层避免过拟合
+# 
+# Xception_model.add(Dropout(0.2))
+#     添加Dropout层避免过拟合
+# 
+# Xception_model.add(Dense(133, activation='softmax'))
+#     添加全连接层（输出层必须有133个节点）并使用softmax激活函数输出每个狗狗品种的概率
+# 
+#     
+# 使用此网络架构的原因是主要在尝试各种架构后，发现Xception 相比传统的卷积神经网络（VGG等）复杂度降低，需要的参数数量也比较少，识别效果也更好一些。
 # 
 # 
 
@@ -860,7 +874,7 @@ dog_breed_detect(train_files[1])
 #   
 # 2.改进想法：1、对不同的狗种类的分类识别，可以通过增加对应分类的图片数量来提高模型识别精度。2、对于特定的分类识别对象，可以尝试优化各层参数，如卷积层的个数、滤波器的个数和大小，使用不同的组合数来改进识别精度。3、尝试不同的损失函数，使用更多的全连接层。
 
-# In[33]:
+# In[34]:
 
 
 ## TODO: 在你的电脑上，在步骤6中，至少在6张图片上运行你的算法。

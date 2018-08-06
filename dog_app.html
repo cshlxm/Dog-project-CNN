@@ -13853,6 +13853,7 @@ Epoch 10/10
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">VGG16_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
 <span class="n">VGG16_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GlobalAveragePooling2D</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">train_VGG16</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+
 <span class="n">VGG16_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">133</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
 
 <span class="n">VGG16_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
@@ -14165,7 +14166,15 @@ test_{network} = bottleneck_features['test']</code></pre>
 <hr>
 <p><a id='question6'></a></p>
 <h3 id="&#38382;&#39064;-6:"><strong>&#38382;&#39064; 6:</strong><a class="anchor-link" href="#&#38382;&#39064;-6:">&#182;</a></h3><p>在下方的代码块中尝试使用 Keras 搭建最终的网络架构，并回答你实现最终 CNN 架构的步骤与每一步的作用，并描述你在迁移学习过程中，使用该网络架构的原因。</p>
-<p><strong>回答:</strong></p>
+<p><strong>回答:</strong> Xception_model = Sequential()<br>
+    调用Xception的预训练模型</p>
+<p>Xception_model.add(GlobalAveragePooling2D(input_shape=train_Resnet50.shape[1:]))
+    添加一个全局平均池化层避免过拟合</p>
+<p>Xception_model.add(Dropout(0.2))
+    添加Dropout层避免过拟合</p>
+<p>Xception_model.add(Dense(133, activation='softmax'))
+    添加全连接层（输出层必须有133个节点）并使用softmax激活函数输出每个狗狗品种的概率</p>
+<p>使用此网络架构的原因是主要在尝试各种架构后，发现Xception 相比传统的卷积神经网络（VGG等）复杂度降低，需要的参数数量也比较少，识别效果也更好一些。</p>
 
 </div>
 </div>
@@ -16816,7 +16825,7 @@ SUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TODO: 在你的电脑上，在步骤6中，至少在6张图片上运行你的算法。</span>
